@@ -64,8 +64,8 @@
            10  WS-CURRENT-MILLISECONDS PIC 9(02).
 
        77 END-OF-FILE PIC Z(1). 
-      
-
+       77 TEMP_A PIC X(50). 
+       77 TEMP_B PIC X(50). 
 
        PROCEDURE                   DIVISION.
       ******************************************************************
@@ -102,6 +102,8 @@
               
                 MOVE  INPUT-RECORD TO OUTPUT_RECCORD
                 MOVE INPUT-RECORD TO VISIT-STRUCT
+                UNSTRING INPUT-RECORD DELIMITED " " INTO TEMP_A  TEMP_B 
+                UNSTRING TEMP_B  DELIMITED " " INTO IP_1  IP_2 IP_3 IP_4  
                 DISPLAY  IP_1 "*" IP_2 "*" IP_3 "* " IP_4
 
 
