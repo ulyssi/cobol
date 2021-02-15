@@ -104,8 +104,8 @@
                 MOVE INPUT-RECORD TO VISIT-STRUCT
                 UNSTRING INPUT-RECORD DELIMITED  BY " " INTO 
                 TEMP_A  TEMP_B 
-                UNSTRING TEMP_B  DELIMITED BY "." INTO 
-                IP_1  IP_2 IP_3 IP_4  
+                DISPLAY TEMP_A
+
                 
                 WRITE OUTPUT_RECCORD 
                 READ VISIT_FILE
