@@ -23,6 +23,7 @@
       ******************************************************************
        FILE SECTION.
        FD TRANSACTIONS.
+       01 OUTPUT_RECCORD      PIC X(30000).
        01 TRANSACTION-STRUCT.
          02 UID PIC 9(5).
          02 DESC PIC X(25).
@@ -140,7 +141,7 @@
            OPEN OUTPUT TRANSACTIONS
 
            PERFORM UNTIL END-OF-FILE = 1
-                WRITE INPUT-RECORD FROM TRANSACTION-RECORD
+                WRITE OUTPUT_RECCORD 
                 READ VISIT_FILE
                 AT END MOVE 1 TO END-OF-FILE
                 END-READ
