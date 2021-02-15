@@ -102,7 +102,7 @@
               
                 MOVE  INPUT-RECORD TO OUTPUT_RECCORD
                 MOVE INPUT-RECORD TO VISIT-STRUCT
-                UNSTRING INPUT-RECORD DELIMITED  BY " " INTO 
+                UNSTRING INPUT-RECORD DELIMITED  BY  SPACE  INTO 
                 TEMP_A  TEMP_B 
                 DISPLAY TEMP_A
 
