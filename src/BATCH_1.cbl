@@ -99,6 +99,11 @@
               10  WS-CURRENT-MINUTE       PIC 9(02).
               10  WS-CURRENT-SECOND       PIC 9(02).
               10  WS-CURRENT-MILLISECONDS PIC 9(02).
+
+       77 END-OF-FILE PIC Z(1). 
+      
+
+
        PROCEDURE                   DIVISION.
       ******************************************************************
        MAIN-RTN.
@@ -119,9 +124,29 @@
            DISPLAY "PARAGRAPHE TRAITEMENT 1".
            DISPLAY WS-CURRENT-DATE-DATA.
            OPEN INPUT VISIT_FILE 
-           
+           READ VISIT_FILE
+             AT END MOVE 1 TO END-OF-FILE
+           END-READ
+           IF END-OF-FILE = 1
+            CLOSE VISIT_FILE
+           END-IF
+          
+           MOVE 0 TO END-OF-FILE.
+          
+           PERFORM UNTIL END-OF-FILE = 1
+                DISPLAY IP SPACE VISIT_DATE
+                READ VISIT_FILE
+                AT END MOVE 1 TO END-OF-FILE
+             END-READ
+           END-PERFORM
+
+
+
            OPEN OUTPUT TRANSACTIONS
               WRITE TRANSACTION-STRUCT FROM TRANSACTION-RECORD
            CLOSE TRANSACTIONS.
+
+
+           
         000-TRT-FONC001-FIN.
            EXIT. 
