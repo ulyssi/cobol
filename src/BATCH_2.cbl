@@ -102,11 +102,11 @@
               
                 MOVE  INPUT-RECORD TO OUTPUT_RECCORD
                 MOVE INPUT-RECORD TO VISIT-STRUCT
-                UNSTRING INPUT-RECORD DELIMITED " " INTO TEMP_A  TEMP_B 
-                UNSTRING TEMP_B  DELIMITED " " INTO IP_1  IP_2 IP_3 IP_4  
-                DISPLAY  IP_1 "*" IP_2 "*" IP_3 "* " IP_4
-
-
+                UNSTRING INPUT-RECORD DELIMITED  BY " " INTO 
+                TEMP_A  TEMP_B 
+                UNSTRING TEMP_B  DELIMITED BY "." INTO 
+                IP_1  IP_2 IP_3 IP_4  
+                
                 WRITE OUTPUT_RECCORD 
                 READ VISIT_FILE
                 AT END MOVE 1 TO END-OF-FILE
