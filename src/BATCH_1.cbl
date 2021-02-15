@@ -44,7 +44,16 @@
               10  WS-CURRENT-MILLISECONDS PIC 9(02).       
 
 
-       FD VISIT_FILE.
+       FD VISIT_FILE
+           RECORDING MODE IS V                     
+           BLOCK CONTAINS 0                       
+           RECORD IS VARYING FROM 1 TO 35.  
+       01 INPUT-RECORD       PIC X(12077).
+
+
+      ******************************************************************
+       WORKING-STORAGE             SECTION.
+      ******************************************************************
        01 VISIT-STRUCT.
          02 IP.
            03 IP_1 PIC 9(3).
@@ -63,13 +72,7 @@
            03 filler PIC X(1).
            03 VYEAR PIC X(4).
            03 filler PIC X(1).
-
-
-
-      ******************************************************************
-       WORKING-STORAGE             SECTION.
-      ******************************************************************
-     
+ 
        01 WS-CURRENT-DATE-DATA.
         05  WS-CURRENT-DATE.
            10  WS-CURRENT-YEAR         PIC 9(04).
@@ -134,7 +137,7 @@
            MOVE 0 TO END-OF-FILE.
           
            PERFORM UNTIL END-OF-FILE = 1
-                DISPLAY IP SPACE VISIT_DATE
+                DISPLAY INPUT-RECORD
                 READ VISIT_FILE
                 AT END MOVE 1 TO END-OF-FILE
              END-READ
@@ -147,6 +150,6 @@
            CLOSE TRANSACTIONS.
 
 
-           
+
         000-TRT-FONC001-FIN.
            EXIT. 
