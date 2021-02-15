@@ -126,6 +126,24 @@
            MOVE WS-CURRENT-DATE-DATA TO WS-CURRENT-DATE-TRANSACTION.
            DISPLAY "PARAGRAPHE TRAITEMENT 1".
            DISPLAY WS-CURRENT-DATE-DATA.
+           OPEN INPUT VISIT_FILE 
+           READ VISIT_FILE
+             AT END MOVE 1 TO END-OF-FILE
+           END-READ
+           
+      ******************************************************************
+           IF END-OF-FILE = 1
+            CLOSE VISIT_FILE
+           END-IF
+          
+           MOVE 0 TO END-OF-FILE.
+          
+           PERFORM UNTIL END-OF-FILE = 1
+                DISPLAY INPUT-RECORD
+                READ VISIT_FILE
+                AT END MOVE 1 TO END-OF-FILE
+                END-READ
+           END-PERFORM
 
 
 
