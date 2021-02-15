@@ -141,7 +141,7 @@
            OPEN OUTPUT TRANSACTIONS
 
            PERFORM UNTIL END-OF-FILE = 1
-                WRITE OUTPUT_RECCORD 
+                WRITE OUTPUT_RECCORD FROM INPUT-RECORD
                 READ VISIT_FILE
                 AT END MOVE 1 TO END-OF-FILE
                 END-READ
