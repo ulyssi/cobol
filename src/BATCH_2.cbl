@@ -101,8 +101,7 @@
            PERFORM UNTIL END-OF-FILE = 1
               
                 MOVE  INPUT-RECORD TO OUTPUT_RECCORD
-                UNSTRING INPUT-RECORD DELIMITED "." INTO 
-                IP_1 IP_2 IP_3 IP_4
+                MOVE INPUT-RECORD TO VISIT-STRUCT
                 DISPLAY  IP_1 "*" IP_2 "*" IP_3 "* " IP_4
 
 
