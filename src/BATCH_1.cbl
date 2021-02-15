@@ -63,25 +63,6 @@
            10  WS-CURRENT-SECOND       PIC 9(02).
            10  WS-CURRENT-MILLISECONDS PIC 9(02).
 
-       01 TRANSACTION-RECORD.
-        02 UID PIC 9(5) VALUE 12345.
-        02 DESC PIC X(25) VALUE 'TEST TRANSACTION'.
-        02 DETAILS.
-       03 AMOUNT PIC 9(6)V9(2) VALUE 000124.34.
-       03 START-BALANCE PIC 9(6)V9(2) VALUE 000177.54.
-       03 END-BALANCE PIC 9(6)V9(2) VALUE 53.2.
-        02 ACCOUNT-ID PIC 9(7) VALUE 1234567.
-        02 WS-CURRENT-DATE-TRANSACTION.
-           05  WS-CURRENT-DATE.
-              10  WS-CURRENT-YEAR         PIC 9(04).
-              10  WS-CURRENT-MONTH        PIC 9(02).
-              10  WS-CURRENT-DAY          PIC 9(02).
-           05 WS-CURRENT-TIME.
-              10  WS-CURRENT-HOURS        PIC 9(02).
-              10  WS-CURRENT-MINUTE       PIC 9(02).
-              10  WS-CURRENT-SECOND       PIC 9(02).
-              10  WS-CURRENT-MILLISECONDS PIC 9(02).
-
        77 END-OF-FILE PIC Z(1). 
       
 
