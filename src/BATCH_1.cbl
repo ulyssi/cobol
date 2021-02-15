@@ -15,25 +15,14 @@
         FILE-CONTROL.
            SELECT TRANSACTIONS ASSIGN TO '/oscobol/src/transactions.txt'
            ORGANIZATION IS SEQUENTIAL.
+           SELECT VISIT_FILE ASSIGN TO '/oscobol/src/data.txt'
+           ORGANIZATION IS SEQUENTIAL.
  
       ******************************************************************
        DATA                        DIVISION.
       ******************************************************************
        FILE SECTION.
        FD TRANSACTIONS.
-
-       01 WS-CURRENT-DATE-DATA.
-        05  WS-CURRENT-DATE.
-           10  WS-CURRENT-YEAR         PIC 9(04).
-           10  WS-CURRENT-MONTH        PIC 9(02).
-           10  WS-CURRENT-DAY          PIC 9(02).
-       05  WS-CURRENT-TIME.
-           10  WS-CURRENT-HOURS        PIC 9(02).
-           10  WS-CURRENT-MINUTE       PIC 9(02).
-           10  WS-CURRENT-SECOND       PIC 9(02).
-           10  WS-CURRENT-MILLISECONDS PIC 9(02).
-       
-        
        01 TRANSACTION-STRUCT.
          02 UID PIC 9(5).
          02 DESC PIC X(25).
@@ -52,11 +41,46 @@
               10  WS-CURRENT-HOURS        PIC 9(02).
               10  WS-CURRENT-MINUTE       PIC 9(02).
               10  WS-CURRENT-SECOND       PIC 9(02).
-              10  WS-CURRENT-MILLISECONDS PIC 9(02).
+              10  WS-CURRENT-MILLISECONDS PIC 9(02).       
+
+
+       FD VISIT_FILE.
+       01 VISIT-STRUCT.
+         02 IP.
+           03 IP_1 PIC 9(3).
+           03 filler PIC X(1).
+           03 IP_2 PIC 9(3).
+           03 filler PIC X(1).
+           03 IP_3 PIC 9(3).
+           03 filler PIC X(1).
+           03 IP_4 PIC 9(3).
+         02 filler PIC X(5).
+         02 VISIT_DATE.
+           03 filler PIC X(1).
+           03 VDAY PIC X(2).
+           03 filler PIC X(1).
+           03 VMONTH PIC X(3).
+           03 filler PIC X(1).
+           03 VYEAR PIC X(4).
+           03 filler PIC X(1).
+
+
 
       ******************************************************************
        WORKING-STORAGE             SECTION.
       ******************************************************************
+     
+       01 WS-CURRENT-DATE-DATA.
+        05  WS-CURRENT-DATE.
+           10  WS-CURRENT-YEAR         PIC 9(04).
+           10  WS-CURRENT-MONTH        PIC 9(02).
+           10  WS-CURRENT-DAY          PIC 9(02).
+       05  WS-CURRENT-TIME.
+           10  WS-CURRENT-HOURS        PIC 9(02).
+           10  WS-CURRENT-MINUTE       PIC 9(02).
+           10  WS-CURRENT-SECOND       PIC 9(02).
+           10  WS-CURRENT-MILLISECONDS PIC 9(02).
+
        01 TRANSACTION-RECORD.
         02 UID PIC 9(5) VALUE 12345.
         02 DESC PIC X(25) VALUE 'TEST TRANSACTION'.
@@ -80,7 +104,7 @@
        MAIN-RTN.
            DISPLAY "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!".
            DISPLAY "! BATCH 1   :                                    !".
-           DISPLAY "! TRAITEMENT BACH STATISTIQUES                   !".
+           DISPLAY "! TRAITEMENT BACH STATISTIQUES VISITES           !".
            DISPLAY "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!". 
           
        MAIN-EXT.
@@ -94,6 +118,8 @@
            MOVE WS-CURRENT-DATE-DATA TO WS-CURRENT-DATE-TRANSACTION.
            DISPLAY "PARAGRAPHE TRAITEMENT 1".
            DISPLAY WS-CURRENT-DATE-DATA.
+           OPEN INPUT VISIT_FILE 
+           
            OPEN OUTPUT TRANSACTIONS
               WRITE TRANSACTION-STRUCT FROM TRANSACTION-RECORD
            CLOSE TRANSACTIONS.
