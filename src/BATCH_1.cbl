@@ -13,7 +13,7 @@
       ******************************************************************
        INPUT-OUTPUT SECTION.
         FILE-CONTROL.
-           SELECT TRANSACTIONS ASSIGN TO 'transactions.txt'
+           SELECT TRANSACTIONS ASSIGN TO '/oscobol/src/transactions.txt'
            ORGANIZATION IS SEQUENTIAL.
  
       ******************************************************************
