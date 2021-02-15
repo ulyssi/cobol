@@ -4,8 +4,8 @@
 #docker run --rm -it -v `pwd`/src:/oscobol/src:ro --name oscobol 
 
 
-rm src/data.txt
-rm src/transactions.txt
+rm src/*
+
 
 m_month=`date +'%b'`
 docker logs wordpress_cca_wordpress_1  >test  2>/dev/null ; cat test | grep "/${m_month}/"| grep '\- \-' | cut -d':' -f1> src/data.txt
