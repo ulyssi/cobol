@@ -137,19 +137,20 @@
            END-IF
           
            MOVE 0 TO END-OF-FILE.
-          
+           OPEN OUTPUT TRANSACTIONS
+
            PERFORM UNTIL END-OF-FILE = 1
-                DISPLAY INPUT-RECORD
+                WRITE TRANSACTION-STRUCT FROM TRANSACTION-RECORD
                 READ VISIT_FILE
                 AT END MOVE 1 TO END-OF-FILE
                 END-READ
            END-PERFORM
 
-
-
-           OPEN OUTPUT TRANSACTIONS
-              WRITE TRANSACTION-STRUCT FROM TRANSACTION-RECORD
+               
+               
            CLOSE TRANSACTIONS.
+
+          
 
 
 
