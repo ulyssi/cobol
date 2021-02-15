@@ -46,10 +46,7 @@
 
 
        FD VISIT_FILE
-           RECORDING MODE IS V                     
-           BLOCK CONTAINS 0                       
-           RECORD IS VARYING IN SIZE FROM 1 to 50.
-       01 INPUT-RECORD       PIC X(50).
+        01 INPUT-RECORD       PIC X(50).
 
 
       ******************************************************************
