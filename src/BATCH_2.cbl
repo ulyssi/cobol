@@ -65,8 +65,11 @@
 
        77 END-OF-FILE PIC Z(1). 
        77 TEMP_A PIC X(50). 
-       77 TEMP_B PIC X(50). 
+       77 TEMP_B PIC X(50).
 
+       01 WS-EOF-SW PIC X(01) VALUE 'N'.
+           88 EOF-SW VALUE 'Y'.
+           88 NOT-EOF-SW VALUE 'Y'.
        PROCEDURE                   DIVISION.
       ******************************************************************
        MAIN-RTN.
@@ -81,41 +84,29 @@
            STOP RUN.
 
 
-        000-TRT-FONC001.           
+       000-TRT-FONC001.
            MOVE FUNCTION CURRENT-DATE TO WS-CURRENT-DATE-DATA
            DISPLAY "PARAGRAPHE TRAITEMENT 1".
            DISPLAY "CURRENT DATE " SPACE WS-CURRENT-DATE-DATA.
-           OPEN INPUT VISIT_FILE 
-           READ VISIT_FILE
-             AT END MOVE 1 TO END-OF-FILE
-           END-READ
+
+           OPEN OUTPUT TRANSACTIONS.
            
-      ******************************************************************
-           IF END-OF-FILE = 1
-            CLOSE VISIT_FILE
-           END-IF
-          
-           MOVE 0 TO END-OF-FILE.
-           OPEN OUTPUT TRANSACTIONS
-
-           PERFORM UNTIL END-OF-FILE = 1
-              
-                MOVE  INPUT-RECORD TO OUTPUT_RECCORD
-                MOVE INPUT-RECORD TO VISIT-STRUCT
-                UNSTRING INPUT-RECORD DELIMITED  BY  SPACE  INTO 
-                TEMP_A  TEMP_B 
-                DISPLAY TEMP_A
-
-                
-                WRITE OUTPUT_RECCORD 
+           OPEN INPUT VISIT_FILE
+           PERFORM UNTIL EOF-SW
                 READ VISIT_FILE
-                AT END MOVE 1 TO END-OF-FILE
-                END-READ
-           END-PERFORM
 
-               
-               
+
+                STRING INPUT-RECORD DELIMITED ' ' INTO
+                TEMP_A
+                MOVE TEMP_A TO OUTPUT_RECCORD
+                WRITE OUTPUT_RECCORD
+           END-PERFORM
+           CLOSE VISIT_FILE
+
+
            CLOSE TRANSACTIONS.
+
+
 
           
 
