@@ -46,7 +46,7 @@
               10  WS-CURRENT-MILLISECONDS PIC 9(02).       
 
 
-       FD VISIT_FILE
+       FD VISIT_FILE.
         01 INPUT-RECORD    PIC X(50).
 
 
