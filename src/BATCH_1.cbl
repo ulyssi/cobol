@@ -61,8 +61,7 @@
        03 AMOUNT PIC 9(6)V9(2) VALUE 000124.34.
        03 START-BALANCE PIC 9(6)V9(2) VALUE 000177.54.
        03 END-BALANCE PIC 9(6)V9(2) VALUE 53.2.
-        02 ACCOUNT-ID PIC 9(7).
-        02 ACCOUNT-HOLDER PIC A(50).
+        02 ACCOUNT-ID PIC 9(7) VALUE 1234567.
        PROCEDURE                   DIVISION.
       ******************************************************************
        MAIN-RTN.
