@@ -4,7 +4,7 @@
 #docker run --rm -it -v `pwd`/src:/oscobol/src:ro --name oscobol 
 
 
-rm src/*
+rm src/*.txt
 
 
 m_month=`date +'%b'`
