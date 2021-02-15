@@ -48,8 +48,8 @@
        FD VISIT_FILE
            RECORDING MODE IS V                     
            BLOCK CONTAINS 0                       
-           RECORD IS VARYING IN SIZE FROM 100 to 30000.
-       01 INPUT-RECORD       PIC X(30000).
+           RECORD IS VARYING IN SIZE FROM 1 to 50.
+       01 INPUT-RECORD       PIC X(50).
 
 
       ******************************************************************
@@ -126,7 +126,7 @@
            MOVE FUNCTION CURRENT-DATE TO WS-CURRENT-DATE-DATA
            MOVE WS-CURRENT-DATE-DATA TO WS-CURRENT-DATE-TRANSACTION.
            DISPLAY "PARAGRAPHE TRAITEMENT 1".
-           DISPLAY WS-CURRENT-DATE-DATA.
+           DISPLAY "CURRENT DATE " SPACE WS-CURRENT-DATE-DATA.
            OPEN INPUT VISIT_FILE 
            READ VISIT_FILE
              AT END MOVE 1 TO END-OF-FILE
