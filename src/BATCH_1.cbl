@@ -21,5 +21,12 @@
            DISPLAY "! BATCH 1   :                                    !".
            DISPLAY "! TRAITEMENT BACH STATISTIQUES                   !".
            DISPLAY "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!". 
+          
        MAIN-EXT.
+           PERFORM 000-TRT-FONC001             
+           THRU 000-TRT-FONC001-FIN
            STOP RUN.
+       000-TRT-FONC001.           
+           DISPLAY "JOE"
+       000-TRT-FONC001-FIN.
+           EXIT. 
