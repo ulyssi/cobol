@@ -97,15 +97,16 @@
            PERFORM UNTIL EOF-SW
                 READ VISIT_FILE
                 UNSTRING INPUT-RECORD DELIMITED BY
-                " " INTO TEMP_A TEMP_B
+                " " INTO TEMP_A TEMP_B TEMP_C TEMP_D
                 UNSTRING TEMP_A DELIMITED BY "."
                 INTO  IP_1 IP_2 IP_3 IP_4 
                
-                UNSTRING TEMP_B DELIMITED BY "["
-                INTO TEMP_C TEMP_D 
-                MOVE TEMP_D TO VISIT_DATE
+                UNSTRING TEMP_D DELIMITED BY "["
+                INTO TEMP_B  TEMP_C
+                MOVE TEMP_B TO VISIT_DATE
                 DISPLAY VISIT-STRUCT
                 DISPLAY TEMP_D
+                DISPLAY  TEMP_B 
                 
                 ADD 1 to NUM
                 MOVE TEMP_A TO OUTPUT_RECCORD
