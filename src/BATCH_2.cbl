@@ -100,11 +100,12 @@
                 " " INTO TEMP_A
                 UNSTRING TEMP_A DELIMITED BY "."
                 INTO  IP_1 IP_2 IP_3 IP_4 
-                DISPLAY IP_1 "." IP_2
+               
                 UNSTRING TEMP_B DELIMITED BY "["
-                INTO TEMP_C 
-                MOVE TEMP_C TO VISIT_DATE
+                INTO TEMP_C TEMP_D 
+                MOVE TEMP_D TO VISIT_DATE
                 DISPLAY VISIT-STRUCT
+                DISPLAY TEMP_D
                 
                 ADD 1 to NUM
                 MOVE TEMP_A TO OUTPUT_RECCORD
