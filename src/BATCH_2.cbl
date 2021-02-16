@@ -26,11 +26,11 @@
        01 VISIT-STRUCT.
          02 IP.
            03 IP_1 PIC 9(3).
-           03 FILLER PIC X(1) VALUE '.'.
+           03 SEP1 PIC X(1) VALUE '.'.
            03 IP_2 PIC 9(3).
-           03 FILLER PIC X(1) VALUE '.'.
+           03 SEP2 PIC X(1) VALUE '.'.
            03 IP_3 PIC 9(3).
-           03 FILLER PIC X(1) VALUE '.'.
+           03 SEP3 PIC X(1) VALUE '.'.
            03 IP_4 PIC 9(3).
            03 DATA1_f PIC X(5).
          02 VISIT_DATE.
@@ -173,8 +173,11 @@
               
               MOVE VISIT_info(OCC2) TO VISIT-STRUCT
               MOVE X'0A' TO LINE-FEED
-		Move 'VISITED :' TO VISITED_STR
-              WRITE VISIT-STRUCT
+		Move ' VISITED :' TO VISITED_STR
+		MOVE '.' TO SEP1
+		MOVE '.' TO SEP2
+              MOVE '.' TO SEP3
+		WRITE VISIT-STRUCT
            END-PERFORM.
  
 
@@ -243,7 +246,7 @@
                TO VISIT_DATE_TAB_f(NB_ELT)
                MOVE X'0A' TO LINE-FEED_f(NB_ELT)
                ADD 1 TO NB_ELT
-         ADD 1 TO TIMES_VISIT_f(NB_ELT)
+               ADD 2 TO TIMES_VISIT_f(NB_ELT)
            else 
          ADD 1 TO TIMES_VISIT_f(OCC3)
 
