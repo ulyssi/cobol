@@ -44,7 +44,6 @@
            03 IP_4 PIC 9(3).
          02 filler PIC X(5).
          02 VISIT_DATE.
-           03 filler PIC X(1).
            03 VDAY PIC X(2).
            03 filler PIC X(1).
            03 VMONTH PIC X(3).
@@ -66,6 +65,8 @@
        77 END-OF-FILE PIC Z(1). 
        77 TEMP_A PIC X(50). 
        77 TEMP_B PIC X(100).
+       77 TEMP_C PIC X(100).
+       77 TEMP_D PIC X(100).
        77 NUM PIC 9(5) VALUE 0.
        01 WS-EOF-SW PIC X(01) VALUE 'N'.
            88 EOF-SW VALUE 'Y'.
@@ -100,8 +101,10 @@
                 UNSTRING TEMP_A DELIMITED BY "."
                 INTO  IP_1 IP_2 IP_3 IP_4 
                 DISPLAY IP_1 "." IP_2
-                DISPLAY  TEMP_A
-                 
+                UNSTRING TEMP_B DELIMITED BY "["
+                INTO TEMP_C 
+                MOVE TEMP_C TO VISIT_DATE
+                DISPLAY VISIT-STRUCT
                 
                 ADD 1 to NUM
                 MOVE TEMP_A TO OUTPUT_RECCORD
