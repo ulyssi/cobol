@@ -103,11 +103,11 @@
                
                 UNSTRING TEMP_D DELIMITED BY "["
                 INTO TEMP_B  TEMP_C
-                MOVE TEMP_B TO VISIT_DATE
+                MOVE TEMP_C TO VISIT_DATE
                 DISPLAY VISIT-STRUCT
-                DISPLAY TEMP_D
-                DISPLAY  TEMP_B 
-                
+                DISPLAY "d" TEMP_D
+                DISPLAY  "b" TEMP_B 
+                DISPLAY  "c" TEMP_c 
                 ADD 1 to NUM
                 MOVE TEMP_A TO OUTPUT_RECCORD
                 WRITE OUTPUT_RECCORD
