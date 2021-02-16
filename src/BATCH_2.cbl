@@ -97,7 +97,8 @@
                 READ VISIT_FILE
                 UNSTRING INPUT-RECORD DELIMITED BY
                 " " INTO TEMP_A
-                ADD "input:" TEMP_A "FIN " NUM TO TEMP_B
+                ADD TEMP_A TO TEMP_B
+                ADD NUM TO TEMP_B
                 ADD 1 to NUM
                 MOVE TEMP_B TO OUTPUT_RECCORD
                 WRITE OUTPUT_RECCORD
