@@ -39,7 +39,7 @@
            03 VMONTH PIC X(3).
            03 filler PIC X(1).
            03 VYEAR PIC X(4).
-       
+           
 
        FD VISIT_FILE.
         01 INPUT-RECORD    PIC X(51).
@@ -49,7 +49,23 @@
        WORKING-STORAGE             SECTION.
       ******************************************************************
 
-          
+       01 TABLE_VISIT.
+        02 VISIT-STRUCT_TAB OCCURS 1500.
+         03 IP_TAB.
+           04 IP_1_TAB PIC 9(3).
+           04 filler PIC X(1).
+           04 IP_2_TAB PIC 9(3).
+           04 filler PIC X(1).
+           04 IP_3_TAB PIC 9(3).
+           04 filler PIC X(1).
+           04 IP_4_TAB PIC 9(3).
+         03 filler PIC X(5) VALUE 'XXXXX'.
+         03 VISIT_DATE_TAB.
+           04 VDAY_TAB PIC X(2).
+           04 filler PIC X(1).
+           04 VMONTH_TAB PIC X(3).
+           04 filler PIC X(1).
+           04 VYEAR_TAB PIC X(4).       
  
        01 WS-CURRENT-DATE-DATA.
         05  WS-CURRENT-DATE.
@@ -68,6 +84,9 @@
        77 TEMP_C PIC X(100).
        77 TEMP_D PIC X(100).
        77 NUM PIC 9(5) VALUE 0.
+
+       77 OCC PIC 9(5) VALUE 1.
+
        01 WS-EOF-SW PIC X(01) VALUE 'N'.
            88 EOF-SW VALUE 'Y'.
            88 NOT-EOF-SW VALUE 'Y'.
@@ -106,6 +125,7 @@
                 MOVE TEMP_C TO VISIT_DATE
                 ADD 1 to NUM
   
+                MOVE VISIT-STRUCT  TO TABLE_VISIT(OCC) 
                 WRITE VISIT-STRUCT
                 MOVE "" TO TEMP_B
            END-PERFORM
