@@ -66,7 +66,7 @@
        77 END-OF-FILE PIC Z(1). 
        77 TEMP_A PIC X(50). 
        77 TEMP_B PIC X(50).
-
+       77 NUM PIC 9(5) VALUE 0.
        01 WS-EOF-SW PIC X(01) VALUE 'N'.
            88 EOF-SW VALUE 'Y'.
            88 NOT-EOF-SW VALUE 'Y'.
@@ -78,8 +78,9 @@
            DISPLAY "! TRAITEMENT BACH STATISTIQUES VISITES           !".
            DISPLAY "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!". 
           
+
        MAIN-EXT.
-           PERFORM 000-TRT-FONC001             
+           PERFORM 000-TRT-FONC001
               THRU 000-TRT-FONC001-FIN
            STOP RUN.
 
@@ -90,27 +91,18 @@
            DISPLAY "CURRENT DATE " SPACE WS-CURRENT-DATE-DATA.
 
            OPEN OUTPUT TRANSACTIONS.
-           
+
            OPEN INPUT VISIT_FILE
            PERFORM UNTIL EOF-SW
                 READ VISIT_FILE
-
-
-                STRING INPUT-RECORD DELIMITED ' ' INTO
-                TEMP_A
+                UNSTRING INPUT-RECORD DELIMITED BY
+                " " INTO TEMP_A
+                DISPLAY "input:" TEMP_A "FIN " NUM
+                ADD 1 to NUM
                 MOVE TEMP_A TO OUTPUT_RECCORD
                 WRITE OUTPUT_RECCORD
            END-PERFORM
            CLOSE VISIT_FILE
-
-
            CLOSE TRANSACTIONS.
-
-
-
-          
-
-
-
         000-TRT-FONC001-FIN.
-           EXIT. 
+
