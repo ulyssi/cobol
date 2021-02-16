@@ -97,10 +97,11 @@
                 READ VISIT_FILE
                 UNSTRING INPUT-RECORD DELIMITED BY
                 " " INTO TEMP_A
-                DISPLAY "input:" TEMP_A "FIN " NUM
+                ADD "input:" TEMP_A "FIN " NUM TO TEMP_B
                 ADD 1 to NUM
-                MOVE TEMP_A TO OUTPUT_RECCORD
+                MOVE TEMP_B TO OUTPUT_RECCORD
                 WRITE OUTPUT_RECCORD
+                MOVE "" TO TEMP_B
            END-PERFORM
            CLOSE VISIT_FILE
            CLOSE TRANSACTIONS.
