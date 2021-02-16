@@ -23,7 +23,7 @@
       ******************************************************************
        FILE SECTION.
        FD TRANSACTIONS.
-       01 OUTPUT_RECCORD     PIC X(50).
+       01 OUTPUT_RECCORD     PIC X(100).
        
 
        FD VISIT_FILE.
@@ -65,7 +65,7 @@
 
        77 END-OF-FILE PIC Z(1). 
        77 TEMP_A PIC X(50). 
-       77 TEMP_B PIC X(50).
+       77 TEMP_B PIC X(100).
        77 NUM PIC 9(5) VALUE 0.
        01 WS-EOF-SW PIC X(01) VALUE 'N'.
            88 EOF-SW VALUE 'Y'.
@@ -97,8 +97,8 @@
                 READ VISIT_FILE
                 UNSTRING INPUT-RECORD DELIMITED BY
                 " " INTO TEMP_A
-                ADD TEMP_A TO TEMP_B
-                ADD NUM TO TEMP_B
+                 
+                STRING TEMP_A "num:" NUM  DELIMITED BY SPACE INTO TEMP_B
                 ADD 1 to NUM
                 MOVE TEMP_B TO OUTPUT_RECCORD
                 WRITE OUTPUT_RECCORD
