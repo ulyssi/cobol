@@ -13,6 +13,7 @@ mv  src/data2.txt src/data.txt
 echo "===============================TRAITEMENT ET MISE EN FORME==================="
 echo " RUNNING COBOL"
 docker build  . -t batch_cobol_run
+docker rm  batch_cobol_run
 docker run  --rm -v `pwd`/src:/oscobol/src:rw --name batch_cobol_run  --entrypoint /bin/bash batch_cobol_run  -c "cobc /oscobol/src/BATCH_2.cbl;cobcrun BATCH_2"
 
 echo "===============================EXPOSE DATA==================="
