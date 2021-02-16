@@ -97,7 +97,7 @@
            PERFORM UNTIL EOF-SW
                 READ VISIT_FILE
                 UNSTRING INPUT-RECORD DELIMITED BY
-                " " INTO TEMP_A
+                " " INTO TEMP_A TEMP_B
                 UNSTRING TEMP_A DELIMITED BY "."
                 INTO  IP_1 IP_2 IP_3 IP_4 
                
