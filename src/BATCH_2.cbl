@@ -50,7 +50,7 @@
       ******************************************************************
 
        01 TABLE_VISIT.
-        02 VISIT-STRUCT_TAB OCCURS 1500.
+        02 VISIT-STRUCT_TAB OCCURS 1500 times.
          03 IP_TAB.
            04 IP_1_TAB PIC 9(3).
            04 filler PIC X(1).
@@ -85,7 +85,15 @@
        77 TEMP_D PIC X(100).
        77 NUM PIC 9(5) VALUE 0.
 
-       77 OCC PIC 9(5) VALUE 1.
+       77 OCC PIC 999999.
+
+       77 OCC2 PIC 999999.
+       77 OCC3 PIC 999999.
+       77 NB_ELT PIC 999999  VALUE 1.
+       77 IND PIC 999999 VALUE 0.
+
+       77 NO_FIND-IND              PIC X          VALUE "N".
+       77 EOF-IND              PIC X          VALUE "N".
 
        01 WS-EOF-SW PIC X(01) VALUE 'N'.
            88 EOF-SW VALUE 'Y'.
@@ -100,21 +108,38 @@
           
 
        MAIN-EXT.
+
            PERFORM 000-TRT-FONC001
-              THRU 000-TRT-FONC001-FIN
+              THRU 000-TRT-FONC001-FIN.
+	    PERFORM 000-TRT-FONC002
+              THRU 000-TRT-FONC002-FIN.
+  
            STOP RUN.
 
 
        000-TRT-FONC001.
-           MOVE FUNCTION CURRENT-DATE TO WS-CURRENT-DATE-DATA
-           DISPLAY "PARAGRAPHE TRAITEMENT 1".
-           DISPLAY "CURRENT DATE " SPACE WS-CURRENT-DATE-DATA.
+             MOVE FUNCTION CURRENT-DATE TO WS-CURRENT-DATE-DATA
+             DISPLAY "PARAGRAPHE TRAITEMENT 1".
+             DISPLAY "CURRENT DATE " SPACE WS-CURRENT-DATE-DATA.
+      
+             OPEN OUTPUT TRANSACTIONS                                
+             OPEN INPUT VISIT_FILE
+      
+      	      MOVE 0 to OCC
+      
+             PERFORM READ-FILE UNTIL EOF-IND = "Y".
+      
+             
+     
+                CLOSE VISIT_FILE.
+                CLOSE TRANSACTIONS.
+      
+                
+       000-TRT-FONC001-FIN.
 
-           OPEN OUTPUT TRANSACTIONS.
 
-           OPEN INPUT VISIT_FILE
-           PERFORM UNTIL EOF-SW
-                READ VISIT_FILE
+	   READ-FILE.
+                
                 UNSTRING INPUT-RECORD DELIMITED BY
                 " " INTO TEMP_A TEMP_B TEMP_C TEMP_D
                 UNSTRING TEMP_A DELIMITED BY "."
@@ -122,14 +147,39 @@
                
                 UNSTRING TEMP_D DELIMITED BY "["
                 INTO TEMP_B  TEMP_C
+                
                 MOVE TEMP_C TO VISIT_DATE
                 ADD 1 to NUM
-  
-                MOVE VISIT-STRUCT  TO TABLE_VISIT(OCC) 
+  		  
+                MOVE VISIT-STRUCT  TO  VISIT-STRUCT_TAB(OCC) 
+		  ADD 1 to OCC
                 WRITE VISIT-STRUCT
-                MOVE "" TO TEMP_B
-           END-PERFORM
-           CLOSE VISIT_FILE
-           CLOSE TRANSACTIONS.
-        000-TRT-FONC001-FIN.
+                READ VISIT_FILE
+                AT END
+                  MOVE "Y" TO EOF-IND.
 
+	   000-TRT-FONC002.
+	       PERFORM TEST AFTER VARYING 
+	       OCC2 FROM 1 BY 1 UNTIL OCC2 = OCC
+            	  DISPLAY  VISIT-STRUCT_TAB(OCC2)
+       
+           	PERFORM  000-FIND_ID
+          	END-PERFORM.
+
+       000-TRT-FONC002-FIN.
+       
+
+
+       000-FIND_ID.
+           MOVE "N" TO NO_FIND-IND
+           PERFORM TEST AFTER VARYING
+       	   OCC3 FROM 1 BY 1 UNTIL OCC3 <= NB_ELT AND
+           NO_FIND-IND NOT = "Y"
+           
+           IF OCC=4
+		     THEN MOVE "Y" TO NO_FIND-IND
+	       END-IF
+            
+           END-PERFORM.
+
+       000-FIND_ID_FIN.
