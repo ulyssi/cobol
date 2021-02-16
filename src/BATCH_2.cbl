@@ -97,10 +97,14 @@
                 READ VISIT_FILE
                 UNSTRING INPUT-RECORD DELIMITED BY
                 " " INTO TEMP_A
+                UNSTRING TEMP_A DELIMITED BY "."
+                INTO  IP_1 IP_2 IP_3 IP_4 
+                DISPLAY IP_1 "." IP_2
+
                  
-                STRING TEMP_A "num:" NUM  DELIMITED BY SPACE INTO TEMP_B
+                
                 ADD 1 to NUM
-                MOVE TEMP_B TO OUTPUT_RECCORD
+                MOVE TEMP_A TO OUTPUT_RECCORD
                 WRITE OUTPUT_RECCORD
                 MOVE "" TO TEMP_B
            END-PERFORM
