@@ -173,11 +173,11 @@
               
               MOVE VISIT_info(OCC2) TO VISIT-STRUCT
               MOVE X'0A' TO LINE-FEED
-		Move ' VISITED :' TO VISITED_STR
-		MOVE '.' TO SEP1
-		MOVE '.' TO SEP2
+        Move ' VISITED :' TO VISITED_STR
+        MOVE '.' TO SEP1
+        MOVE '.' TO SEP2
               MOVE '.' TO SEP3
-		WRITE VISIT-STRUCT
+        WRITE VISIT-STRUCT
            END-PERFORM.
  
 
@@ -248,12 +248,7 @@
                ADD 1 TO NB_ELT
                ADD 2 TO TIMES_VISIT_f(NB_ELT)
            else 
-         ADD 1 TO TIMES_VISIT_f(OCC3)
+           ADD 1 TO TIMES_VISIT_f(OCC3)
 
-        END-IF.
-
-
-
-
+           END-IF.
            EXIT. 
-           END PROGRAM.   
