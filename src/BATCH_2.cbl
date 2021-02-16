@@ -27,7 +27,7 @@
        
 
        FD VISIT_FILE.
-        01 INPUT-RECORD    PIC X(50).
+        01 INPUT-RECORD    PIC X(51).
 
 
       ******************************************************************
@@ -100,7 +100,7 @@
                 UNSTRING TEMP_A DELIMITED BY "."
                 INTO  IP_1 IP_2 IP_3 IP_4 
                 DISPLAY IP_1 "." IP_2
-
+                DISPLAY  TEMP_A
                  
                 
                 ADD 1 to NUM
