@@ -23,16 +23,6 @@
       ******************************************************************
        FILE SECTION.
        FD TRANSACTIONS.
-       01 OUTPUT_RECCORD     PIC X(100).
-       
-
-       FD VISIT_FILE.
-        01 INPUT-RECORD    PIC X(51).
-
-
-      ******************************************************************
-       WORKING-STORAGE             SECTION.
-      ******************************************************************
        01 VISIT-STRUCT.
          02 IP.
            03 IP_1 PIC 9(3).
@@ -42,14 +32,24 @@
            03 IP_3 PIC 9(3).
            03 filler PIC X(1).
            03 IP_4 PIC 9(3).
-         02 filler PIC X(5).
+         02 filler PIC X(5) VALUE 'XXXXX'.
          02 VISIT_DATE.
            03 VDAY PIC X(2).
            03 filler PIC X(1).
            03 VMONTH PIC X(3).
            03 filler PIC X(1).
            03 VYEAR PIC X(4).
-           03 filler PIC X(1).
+       
+
+       FD VISIT_FILE.
+        01 INPUT-RECORD    PIC X(51).
+
+
+      ******************************************************************
+       WORKING-STORAGE             SECTION.
+      ******************************************************************
+
+          
  
        01 WS-CURRENT-DATE-DATA.
         05  WS-CURRENT-DATE.
@@ -104,13 +104,9 @@
                 UNSTRING TEMP_D DELIMITED BY "["
                 INTO TEMP_B  TEMP_C
                 MOVE TEMP_C TO VISIT_DATE
-                DISPLAY VISIT-STRUCT
-                DISPLAY "d" TEMP_D
-                DISPLAY  "b" TEMP_B 
-                DISPLAY  "c" TEMP_c 
                 ADD 1 to NUM
-                MOVE TEMP_A TO OUTPUT_RECCORD
-                WRITE OUTPUT_RECCORD
+  
+                WRITE VISIT-STRUCT
                 MOVE "" TO TEMP_B
            END-PERFORM
            CLOSE VISIT_FILE
