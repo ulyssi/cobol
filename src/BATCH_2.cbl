@@ -59,7 +59,7 @@
 
 
        01 VISIT-STRUCT-final.
-        02 VISIT_info  OCCURS 10 times.
+        02 VISIT_info  OCCURS 5000 times.
            03 ID_IP.
             04 IP_f.
               05 IP_1_f PIC 9(3).
