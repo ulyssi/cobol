@@ -41,11 +41,8 @@
            03 VYEAR PIC X(4).
          02 VISITED_STR PIC X(10).
          02 TIMES_VISIT PIC 9(5).
+        
          02 LINE-FEED  PIC X.
-
-
-
-
        FD VISIT_FILE.
         01 INPUT-RECORD    PIC X(51).
 
@@ -54,9 +51,6 @@
        WORKING-STORAGE             SECTION.
       ******************************************************************
        77 OCC_G PIC 999999.
-       77 NB_ELT PIC 999999  VALUE 1.
-       77 NB_ELT_2 PIC 999999  VALUE 1.
-
 
        01 VISIT-STRUCT-final.
         02 VISIT_info  OCCURS 5000 times.
@@ -72,6 +66,7 @@
             04 DATA1_f PIC X(5).
             04 VISIT_DATE_TAB_f.
               05 VDAY_f PIC X(2).
+              05 FILLER PIC X(1).
               05 FILLER PIC X(1).
               05 VMONTH_f PIC X(3).
               05 FILLER PIC X(1).
@@ -120,7 +115,7 @@
 
        77 OCC2 PIC 999999.
        77 OCC3 PIC 999999.
-      
+       77 NB_ELT PIC 999999  VALUE 1.
        77 IND PIC 999999 VALUE 0.
 
        77 NO_FIND-IND              PIC X          VALUE "N".
@@ -136,8 +131,17 @@
            DISPLAY "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!".
            DISPLAY "! BATCH 1   :                                    !".
            DISPLAY "! TRAITEMENT BACH STATISTIQUES VISITES           !".
+           DISPLAY "! AUTHOR : ULYSSE CADOUR                         !".
+           DISPLAY "!                                                !".
            DISPLAY "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!". 
-
+           DISPLAY "!            _           _                       !"
+           DISPLAY "!           | |         | |                      !"           
+           DISPLAY "!   ___ ___ | |__   ___ | |                      !"
+           DISPLAY "!  / __/ _ \| '_ \ / _ \| |                      !"
+           DISPLAY "! | (_| (_) | |_) | (_) | |                      !"
+           DISPLAY "!  \___\___/|_.__/ \___/|_|                      !"
+           DISPLAY "!                                                !"
+           DISPLAY "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!". 
 
 
        MAIN-EXT.
@@ -148,17 +152,20 @@
               THRU 000-TRT-FONC002-FIN.
            PERFORM 300-ECRITURE-FICHIER.
 
-           CLOSE TRANSACTIONS   
-           DISPLAY "FIN PROG"
+           DISPLAY "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!".
+           DISPLAY "! END BATCH COOL RUN MAN :-)                     !".
+           DISPLAY "!                                                !".
+           DISPLAY "!                                                !".
+           DISPLAY "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!". 
+
            STOP RUN.
 
 
        000-TRT-FONC001.
              MOVE FUNCTION CURRENT-DATE TO WS-CURRENT-DATE-DATA
-             DISPLAY "PARAGRAPHE TRAITEMENT 1".
-             DISPLAY "CURRENT DATE " SPACE WS-CURRENT-DATE-DATA.
-      
-             
+             DISPLAY "! CURRENT DATE : " WS-CURRENT-DATE-DATA
+      	      "                !"
+
              OPEN INPUT VISIT_FILE
       
                 MOVE 0 to OCC
@@ -167,20 +174,17 @@
       
              
      
-                CLOSE VISIT_FILE.
+             
                
       
                 
        000-TRT-FONC001-FIN.
 
        300-ECRITURE-FICHIER.
-	
-           OPEN OUTPUT TRANSACTIONS   
-	    DISPLAY "OK"
-           COMPUTE NB_ELT = NB_ELT + 1                    
-           PERFORM  VARYING
-           OCC2 FROM 1 BY 1 UNTIL OCC2 = NB_ELT
-          
+           OPEN OUTPUT TRANSACTIONS                                
+           PERFORM TEST AFTER VARYING  
+           OCC2 FROM 1 BY 1 UNTIL OCC2 = NB_ELT 
+              
               MOVE VISIT_info(OCC2) TO VISIT-STRUCT
               MOVE X'0A' TO LINE-FEED
             Move ' VISITED :' TO VISITED_STR
@@ -219,28 +223,30 @@
            MOVE 0 TO NB_ELT
            MOVE OCC to OCC_G
 
-	    COMPUTE OCC_G= OCC_G - 1 
-             PERFORM VARYING 
+
+           
+             PERFORM TEST AFTER VARYING 
              OCC2 FROM 1 BY 1 UNTIL 
              OCC2 >= OCC_G 
                PERFORM  000-FIND_ID
-		 DISPLAY OCC2
                PERFORM 00-ANALYSE-FIND
-             END-PERFORM.
+           	          
              
+             END-PERFORM.
+
        
           
-        000-TRT-FONC002-FIN.
+       000-TRT-FONC002-FIN.
 
 
 
        000-FIND_ID.
            MOVE "N" TO NO_FIND-IND
-           MOVE NB_ELT to NB_ELT_2 
-
-           PERFORM TEST BEFORE VARYING OCC3 FROM 0 BY 1 
-	    UNTIL OCC3 > NB_ELT_2 
-           OR  NO_FIND-IND NOT ="N"
+           MOVE 0 TO OCC3
+           PERFORM TEST AFTER VARYING
+              OCC3 FROM 0 BY 1 UNTIL OCC3 = NB_ELT 
+              OR  NO_FIND-IND NOT ="N"
+        
                IF IP_TAB(OCC2)=IP_f(OCC3) 
                 THEN
                  MOVE "Y" TO NO_FIND-IND
@@ -248,19 +254,19 @@
            END-PERFORM.
         
         00-ANALYSE-FIND.
-	
               if NO_FIND-IND NOT = "Y"
               THEN
- 		 ADD 1 TO NB_ELT
-		 MOVE IP_TAB(OCC2)
+              DISPLAY "! FIND IP "IP_TAB(OCC2)
+               "                           !"
+               MOVE IP_TAB(OCC2)
                TO IP_f(NB_ELT)
                MOVE VISIT_DATE_TAB(OCC2)
                TO VISIT_DATE_TAB_f(NB_ELT)
                MOVE X'0A' TO LINE-FEED_f(NB_ELT)
-               ADD 1 TO TIMES_VISIT_f(NB_ELT)
+               ADD 1 TO NB_ELT
+               ADD 2 TO TIMES_VISIT_f(NB_ELT)
+           else 
+           ADD 1 TO TIMES_VISIT_f(OCC3)
 
-              else 
-		 COMPUTE OCC3 = OCC3 - 1 
-		 ADD 1 TO TIMES_VISIT_f(OCC3)
-		 END-IF.
+           END-IF.
            EXIT. 
